@@ -9,6 +9,41 @@ public class Locations implements Map<Integer, Location> {
 
     private static Map<Integer, Location> locations = new HashMap<Integer, Location>();
 
+    //static initialisation
+    static {
+        Map<String, Integer> tempExit = new HashMap<String, Integer>();
+
+        //DESERT
+        tempExit = new HashMap<String, Integer>();
+        tempExit.put("W", 2);
+        tempExit.put("N", 3);
+        tempExit.put("E", 4);
+        tempExit.put("S", 5);
+        locations.put(1, new Location(1, "Sunny and dry desert", tempExit));
+        //GRAVEYARD
+        tempExit = new HashMap<String, Integer>();
+        tempExit.put("N", 3);
+        tempExit.put("E", 1);
+        tempExit.put("S", 5);
+        locations.put(2, new Location(3, "Abandoned city full of zombies", tempExit));
+        //LUCKY_FOREST
+        tempExit = new HashMap<String, Integer>();
+        tempExit.put("W", 2);
+        tempExit.put("E", 4);
+        tempExit.put("S", 1);
+        locations.put(3, new Location(3, "Magical fields of clovers", tempExit));
+        //HELL
+        tempExit = new HashMap<String, Integer>();
+        tempExit.put("S", 5);
+        locations.put(4, new Location(4, "Condemned area in the Hell", tempExit));
+        //HEAVEN
+        tempExit = new HashMap<String, Integer>();
+        tempExit.put("W", 2);
+        tempExit.put("N", 1);
+        locations.put(5, new Location(5, "Blessings in the Heaven", tempExit));
+
+    }
+
     @Override
     public int size() {
         return locations.size();
