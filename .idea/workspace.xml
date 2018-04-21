@@ -17,12 +17,11 @@
       <file leaf-file-name="Locations.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/inputsOutputs/Locations.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+            <state relative-caret-position="333">
+              <caret line="54" column="77" selection-start-line="54" selection-start-column="77" selection-end-line="54" selection-end-column="77" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#249#268#0" expanded="true" />
-                <element signature="e#1558#1575#0" expanded="true" />
                 <element signature="e#2770#2771#0" expanded="true" />
                 <element signature="e#2809#2810#0" expanded="true" />
                 <element signature="e#2855#2856#0" expanded="true" />
@@ -53,6 +52,15 @@
       <file leaf-file-name="locations.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/locations.txt">
           <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="directions.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/directions.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file leaf-file-name="Location.java" pinned="false" current-in-tab="false">
@@ -259,12 +267,12 @@
       <window_info anchor="right" id="Capture Analysis" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32956383" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32956383" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24962063" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24962063" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32956383" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -290,9 +298,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/locations.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/inputsOutputs/Location.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -309,14 +314,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/locations.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/directions.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/inputsOutputs/Locations.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+        <state relative-caret-position="333">
+          <caret line="54" column="77" selection-start-line="54" selection-start-column="77" selection-end-line="54" selection-end-column="77" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#249#268#0" expanded="true" />
-            <element signature="e#1558#1575#0" expanded="true" />
             <element signature="e#2770#2771#0" expanded="true" />
             <element signature="e#2809#2810#0" expanded="true" />
             <element signature="e#2855#2856#0" expanded="true" />
