@@ -2,6 +2,7 @@ package inputsOutputs;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,19 +12,28 @@ public class Locations implements Map<Integer, Location> {
 
     private static Map<Integer, Location> locations = new HashMap<Integer, Location>();
 
-    public static void main(String[] args) {
-        FileWriter localFile = null;
-        try{
-            localFile = new FileWriter("locations.txt");
+    public static void main(String[] args) throws IOException{
+        try(FileWriter localFile = new FileWriter("locations.txt")){
+            localFile.write("\tID\tDESCRIPTION\t\t\t\tNUMBER OF EXTIS\n\n");
             for(Location location : locations.values()){
-                localFile.write("\n" + location.getLocationID() + "\t" + location.getDescription());
+                localFile.write("\t" + location.getLocationID() + "\t"
+                                + location.getDescription() + "\t\t\t\t"
+                                + location.getExits().size() + "\n");
             }
-            localFile.close();
-        }catch(IOException e){
-            System.out.println(e);
-            e.printStackTrace();
         }
-
+//        FileWriter localFile = null;
+//        try{
+//            localFile = new FileWriter("locations.txt");
+//            for(Location location : locations.values()) {
+//                localFile.write("\n" + location.getLocationID() + "\t" + location.getDescription());
+//            }
+//        }finally{
+//            System.out.println("FINALLY BLOCK");
+//            if (localFile != null) {
+//                System.out.println("CLOSING THE FILE");
+//                localFile.close();
+//            }
+//        }
     }
 
     //static initialisation

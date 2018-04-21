@@ -1,6 +1,7 @@
+	ID	DESCRIPTION				NUMBER OF EXTIS
 
-1	Sunny and dry desert
-3	Abandoned city full of zombies
-3	Magical fields of clovers
-4	Condemned area in the Hell
-5	Blessings in the Heaven
+	1	Sunny and dry desert				5
+	3	Abandoned city full of zombies				4
+	3	Magical fields of clovers				4
+	4	Condemned area in the Hell				2
+	5	Blessings in the Heaven				3
