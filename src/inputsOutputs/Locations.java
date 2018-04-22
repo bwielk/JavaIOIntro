@@ -1,5 +1,6 @@
 package inputsOutputs;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,10 +14,10 @@ public class Locations implements Map<Integer, Location> {
     public static void main(String[] args) throws IOException{
         try(FileWriter localFile = new FileWriter("locations.txt");
             FileWriter directionsFile = new FileWriter("directions.txt")){
-            localFile.write("\tID\tDESCRIPTION\t\t\t\tNUMBER OF EXTIS\n\n");
+            //localFile.write("\tID\tDESCRIPTION\t\t\t\tNUMBER OF EXTIS\n\n");
             for(Location location : locations.values()){
-                localFile.write("\t" + location.getLocationID() + "\t"
-                                + location.getDescription() + "\t\t\t\t"
+                localFile.write(location.getLocationID() + "\t"
+                                + location.getDescription() + "\t"
                                 + location.getExits().size() + "\n");
                for(String direction : location.getExits().keySet()){
                    directionsFile.write(location.getLocationID() + "\t"
@@ -58,6 +59,27 @@ public class Locations implements Map<Integer, Location> {
             e.printStackTrace();
         }
         finally{
+            if(scanner != null){
+                scanner.close();
+            }
+        }
+
+        try{
+            scanner = new Scanner(new BufferedReader(new FileReader("directions.txt")));
+            scanner.useDelimiter("\t");
+            while(scanner.hasNextLine()){
+                int loc = scanner.nextInt();
+                scanner.skip(scanner.delimiter());
+                String direction = scanner.next();
+                scanner.skip(scanner.delimiter());
+                int destination = Integer.parseInt(scanner.nextLine());
+                System.out.println(loc + " " + direction + " " + destination);
+                Location location = locations.get(loc);
+                location.addExit(direction, destination);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }finally{
             if(scanner != null){
                 scanner.close();
             }
