@@ -45,7 +45,6 @@ public class Locations implements Map<Integer, Location> {
 
         try (FileWriter localFile = new FileWriter("locations.txt");
              FileWriter directionsFile = new FileWriter("directions.txt")) {
-            //localFile.write("\tID\tDESCRIPTION\t\t\t\tNUMBER OF EXTIS\n\n");
             for (Location location : locations.values()) {
                 localFile.write(location.getLocationID() + "\t"
                         + location.getDescription() + "\t"
@@ -57,7 +56,9 @@ public class Locations implements Map<Integer, Location> {
                 }
             }
         }
+
         FileWriter localFile = null;
+
         try{
             localFile = new FileWriter("locations.txt");
             for(Location location : locations.values()) {
@@ -73,9 +74,7 @@ public class Locations implements Map<Integer, Location> {
 
         //static initialisation
     static {
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(new FileReader("locations.txt"));
+        try ( Scanner scanner = new Scanner(new BufferedReader(new FileReader("locations.txt")));){
             scanner.useDelimiter("\t");
             while (scanner.hasNextLine()) {
                 int loc = scanner.nextInt();
@@ -87,14 +86,9 @@ public class Locations implements Map<Integer, Location> {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (scanner != null) {
-                scanner.close();
-            }
         }
 
-        try {
-            scanner = new Scanner(new BufferedReader(new FileReader("directions.txt")));
+        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader("directions.txt")))){
             scanner.useDelimiter("\t");
             while (scanner.hasNextLine()) {
                 int loc = scanner.nextInt();
@@ -108,10 +102,6 @@ public class Locations implements Map<Integer, Location> {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (scanner != null) {
-                scanner.close();
-            }
         }
     }
 
