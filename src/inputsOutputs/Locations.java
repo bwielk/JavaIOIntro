@@ -4,86 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.*;
 
 public class Locations implements Map<Integer, Location> {
 
     private static Map<Integer, Location> locations = new HashMap<Integer, Location>();
 
-    public static void main(String[] args) throws IOException{
-        try(FileWriter localFile = new FileWriter("locations.txt");
-            FileWriter directionsFile = new FileWriter("directions.txt")){
-            //localFile.write("\tID\tDESCRIPTION\t\t\t\tNUMBER OF EXTIS\n\n");
-            for(Location location : locations.values()){
-                localFile.write(location.getLocationID() + "\t"
-                                + location.getDescription() + "\t"
-                                + location.getExits().size() + "\n");
-               for(String direction : location.getExits().keySet()){
-                   directionsFile.write(location.getLocationID() + "\t"
-                                        + direction + "\t"
-                                        + location.getExits().get(direction) + "\n");
-               }
-            }
-        }
-//        FileWriter localFile = null;
-//        try{
-//            localFile = new FileWriter("locations.txt");
-//            for(Location location : locations.values()) {
-//                localFile.write("\n" + location.getLocationID() + "\t" + location.getDescription());
-//            }
-//        }finally{
-//            System.out.println("FINALLY BLOCK");
-//            if (localFile != null) {
-//                System.out.println("CLOSING THE FILE");
-//                localFile.close();
-//            }
-//        }
-    }
-
-    //static initialisation
-    static {
-        Scanner scanner = null;
-        try{
-            scanner = new Scanner(new FileReader("locations.txt"));
-            scanner.useDelimiter("\t");
-            while(scanner.hasNextLine()){
-                int loc = scanner.nextInt();
-                scanner.skip(scanner.delimiter());
-                String description = scanner.nextLine();
-                System.out.println("Imported loc: " + loc + "\t" + description);
-                Map<String, Integer> tempExit = new HashMap<>();
-                locations.put(loc, new Location(loc, description, tempExit));
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        finally{
-            if(scanner != null){
-                scanner.close();
-            }
-        }
-
-        try{
-            scanner = new Scanner(new BufferedReader(new FileReader("directions.txt")));
-            scanner.useDelimiter("\t");
-            while(scanner.hasNextLine()){
-                int loc = scanner.nextInt();
-                scanner.skip(scanner.delimiter());
-                String direction = scanner.next();
-                scanner.skip(scanner.delimiter());
-                int destination = Integer.parseInt(scanner.nextLine());
-                System.out.println(loc + " " + direction + " " + destination);
-                Location location = locations.get(loc);
-                location.addExit(direction, destination);
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }finally{
-            if(scanner != null){
-                scanner.close();
-            }
-        }
+    public static void main(String[] args) throws IOException {
 
 //        Map<String, Integer> tempExit = new HashMap<String, Integer>();
 //
@@ -99,7 +26,7 @@ public class Locations implements Map<Integer, Location> {
 //        tempExit.put("N", 3);
 //        tempExit.put("E", 1);
 //        tempExit.put("S", 5);
-//        locations.put(2, new Location(3, "Abandoned city full of zombies", tempExit));
+//        locations.put(2, new Location(2, "Abandoned city full of zombies", tempExit));
 //        //LUCKY_FOREST
 //        tempExit = new HashMap<String, Integer>();
 //        tempExit.put("W", 2);
@@ -116,6 +43,76 @@ public class Locations implements Map<Integer, Location> {
 //        tempExit.put("N", 1);
 //        locations.put(5, new Location(5, "Blessings in the Heaven", tempExit));
 
+        try (FileWriter localFile = new FileWriter("locations.txt");
+             FileWriter directionsFile = new FileWriter("directions.txt")) {
+            //localFile.write("\tID\tDESCRIPTION\t\t\t\tNUMBER OF EXTIS\n\n");
+            for (Location location : locations.values()) {
+                localFile.write(location.getLocationID() + "\t"
+                        + location.getDescription() + "\t"
+                        + location.getExits().size() + "\n");
+                for (String direction : location.getExits().keySet()) {
+                    directionsFile.write(location.getLocationID() + "\t"
+                            + direction + "\t"
+                            + location.getExits().get(direction) + "\n");
+                }
+            }
+        }
+        FileWriter localFile = null;
+        try{
+            localFile = new FileWriter("locations.txt");
+            for(Location location : locations.values()) {
+                localFile.write("\n" + location.getLocationID() + "\t" + location.getDescription());
+            }
+        }finally{
+            System.out.println("FINALLY BLOCK");
+            if (localFile != null) {
+                System.out.println("CLOSING THE FILE");
+                localFile.close();
+            }
+        }}
+
+        //static initialisation
+    static {
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new FileReader("locations.txt"));
+            scanner.useDelimiter("\t");
+            while (scanner.hasNextLine()) {
+                int loc = scanner.nextInt();
+                scanner.skip(scanner.delimiter());
+                String description = scanner.nextLine();
+                System.out.println("Imported loc: " + loc + "\t" + description);
+                Map<String, Integer> tempExit = new HashMap<>();
+                locations.put(loc, new Location(loc, description, tempExit));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
+
+        try {
+            scanner = new Scanner(new BufferedReader(new FileReader("directions.txt")));
+            scanner.useDelimiter("\t");
+            while (scanner.hasNextLine()) {
+                int loc = scanner.nextInt();
+                scanner.skip(scanner.delimiter());
+                String direction = scanner.next();
+                scanner.skip(scanner.delimiter());
+                int destination = Integer.parseInt(scanner.nextLine());
+                System.out.println(loc + " " + direction + " " + destination);
+                Location location = locations.get(loc);
+                location.addExit(direction, destination);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
     }
 
     @Override
