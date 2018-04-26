@@ -1,6 +1,7 @@
 package inputsOutputs;
 
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Locations implements Map<Integer, Location> {
@@ -8,35 +9,21 @@ public class Locations implements Map<Integer, Location> {
     private static Map<Integer, Location> locations = new LinkedHashMap<Integer, Location>();
 
     public static void main(String[] args) throws IOException {
-
-        try (BufferedWriter locationsFile = new BufferedWriter(new FileWriter("locations.txt"));
-             BufferedWriter directionsFile = new BufferedWriter(new FileWriter("directions.txt"))){
-            for(Location location : locations.values()) {
-                locationsFile.write(location.getLocationID() + "\t"
-                        + location.getDescription() + "\t"
-                        + location.getExits().size() + "\n");
-                for(String direction : location.getExits().keySet()) {
-                    directionsFile.write(location.getLocationID() + "\t"
-                            + direction + "\t"
-                            + location.getExits().get(direction) + "\n");
+        try (DataOutputStream locFile = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("locations.dat")))) {
+            for (Location location : locations.values()) {
+                locFile.writeInt(location.getLocationID());
+                locFile.writeUTF(location.getDescription());
+                System.out.println("Writing location " + location.getLocationID());
+                System.out.println("Writing " + (location.getExits().size() - 1) + " exits");
+                for (String direction : location.getExits().keySet()) {
+                    if (!direction.equalsIgnoreCase("Q")) {
+                        locFile.writeUTF(direction);
+                        locFile.writeInt(location.getExits().get(direction));
+                    }
                 }
             }
         }
-
-        FileWriter localFile = null;
-
-        try{
-            localFile = new FileWriter("locations.txt");
-            for(Location location : locations.values()) {
-                localFile.write("\n" + location.getLocationID() + "\t" + location.getDescription());
-            }
-        }finally{
-            System.out.println("FINALLY BLOCK");
-            if (localFile != null) {
-                System.out.println("CLOSING THE FILE");
-                localFile.close();
-            }
-        }}
+    }
 
         //static initialisation
     static {
