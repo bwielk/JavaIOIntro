@@ -29,19 +29,25 @@ public class Locations implements Map<Integer, Location> {
         //static initialisation
     static {
         try(DataInputStream locFile = new DataInputStream(new BufferedInputStream(new FileInputStream("locations.dat")))){
-            while(true){
-                Map<String, Integer> exits = new LinkedHashMap<>();
-                int locID = locFile.readInt();
-                String description = locFile.readUTF();
-                int numOfExists = locFile.readInt();
-                System.out.println("Read location " + locID + " : " + description);
-                for(int i=0; i<numOfExists; i++){
-                    String direction = locFile.readUTF();
-                    int destination = locFile.readInt();
-                    exits.put(direction, destination);
-                    System.out.println(direction + ": " + destination);
+            boolean endOfFile = false;
+            while(!endOfFile){
+                try{
+                    Map<String, Integer> exits = new LinkedHashMap<>();
+                    int locID = locFile.readInt();
+                    String description = locFile.readUTF();
+                    int numOfExists = locFile.readInt();
+                    System.out.println("Read location " + locID + " : " + description);
+                    for(int i=0; i<numOfExists; i++){
+                        String direction = locFile.readUTF();
+                        int destination = locFile.readInt();
+                        exits.put(direction, destination);
+                        System.out.println(direction + ": " + destination);
+                    }
+                    locations.put(locID, new Location(locID, description, exits));
+                }catch(EOFException e){
+                    endOfFile = true;
+                    e.printStackTrace();
                 }
-                locations.put(locID, new Location(locID, description, exits));
             }
         }catch(IOException e){
             e.printStackTrace();
