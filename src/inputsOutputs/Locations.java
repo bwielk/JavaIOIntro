@@ -1,7 +1,6 @@
 package inputsOutputs;
 
 import java.io.*;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Locations implements Map<Integer, Location> {
@@ -13,8 +12,10 @@ public class Locations implements Map<Integer, Location> {
             for (Location location : locations.values()) {
                 locFile.writeInt(location.getLocationID());
                 locFile.writeUTF(location.getDescription());
+                int numOFExits = location.getExits().size() - 1;
                 System.out.println("Writing location " + location.getLocationID());
-                System.out.println("Writing " + (location.getExits().size() - 1) + " exits");
+                System.out.println("Writing " + numOFExits + " exits");
+                locFile.writeInt(numOFExits);
                 for (String direction : location.getExits().keySet()) {
                     if (!direction.equalsIgnoreCase("Q")) {
                         locFile.writeUTF(direction);
@@ -27,34 +28,22 @@ public class Locations implements Map<Integer, Location> {
 
         //static initialisation
     static {
-
-        try ( Scanner scanner = new Scanner(new BufferedReader(new FileReader("locations.txt")));){
-            scanner.useDelimiter("\t");
-            while (scanner.hasNextLine()) {
-                int loc = scanner.nextInt();
-                scanner.skip(scanner.delimiter());
-                String description = scanner.nextLine();
-                System.out.println("Imported loc: " + loc + "\t" + description);
-                Map<String, Integer> tempExit = new HashMap<>();
-                locations.put(loc, new Location(loc, description, tempExit));
+        try(DataInputStream locFile = new DataInputStream(new BufferedInputStream(new FileInputStream("locations.dat")))){
+            while(true){
+                Map<String, Integer> exits = new LinkedHashMap<>();
+                int locID = locFile.readInt();
+                String description = locFile.readUTF();
+                int numOfExists = locFile.readInt();
+                System.out.println("Read location " + locID + " : " + description);
+                for(int i=0; i<numOfExists; i++){
+                    String direction = locFile.readUTF();
+                    int destination = locFile.readInt();
+                    exits.put(direction, destination);
+                    System.out.println(direction + ": " + destination);
+                }
+                locations.put(locID, new Location(locID, description, exits));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader("directions.txt")))){
-            scanner.useDelimiter("\t");
-            while (scanner.hasNextLine()) {
-                int loc = scanner.nextInt();
-                scanner.skip(scanner.delimiter());
-                String direction = scanner.next();
-                scanner.skip(scanner.delimiter());
-                int destination = Integer.parseInt(scanner.nextLine());
-                System.out.println(loc + " " + direction + " " + destination);
-                Location location = locations.get(loc);
-                location.addExit(direction, destination);
-            }
-        } catch (IOException e) {
+        }catch(IOException e){
             e.printStackTrace();
         }
     }
